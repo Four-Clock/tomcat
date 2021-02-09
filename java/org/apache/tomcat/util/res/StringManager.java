@@ -16,6 +16,7 @@
  */
 package org.apache.tomcat.util.res;
 
+import java.io.UnsupportedEncodingException;
 import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -145,6 +146,11 @@ public class StringManager {
             //      simply return null.  Calling code can then do
             //      a null check.
             str = null;
+        }
+        try {
+            str = new String(str.getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
 
         return str;
